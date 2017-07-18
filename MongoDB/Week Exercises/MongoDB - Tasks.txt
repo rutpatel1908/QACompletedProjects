@@ -1,0 +1,216 @@
+Task 1 - Primer Dataset
+
+Commands that I have used to implement the tasks
+
+1. use testdatabase
+2. db
+3. show dbs
+4. First created the table called "Users" by using this command "db.createCollection("users")". Then created the record using this code:
+
+	db.collection_name.insert({user_id: "1",f_name:"Rut Patel"})
+5. show dbs
+6. mongoimport --db testdatabase --collection restaurants --drop --file C:\LocalInstall\Databases\ExampleData\primer-dataset.json
+7. use test
+8. db.restaurants.find().pretty()
+9. 
+	db.restaurants.insert(
+		
+		{
+			"address":{
+				"building": "790", "coord":[-74.9992543, 41.7411234], "street":"Anchorage", "zipcode":"10040"
+			},
+			"borough":"Manchester",
+			"cuisine":"Italian",
+			"grades":[
+				{
+					"date": new Date("2017-05-18T16:00:00Z"),"grade":"A","score":15
+				},
+				{
+					"date": new Date("2016-04-18T16:00:00Z"),"grade":"A","score":14
+				},
+				{
+					"date": new Date("2015-03-18T16:00:00Z"),"grade":"A","score":13
+				}
+			],
+			"name":"The Heart Restaurement",
+			"restaurent_id": "40361707"
+			
+		}
+	)
+
+10. db.restaurants.find({borough:"Queens"}).pretty()
+11.	db.restaurants.find({"grades.grade":"A"}).pretty()
+12. db.restaurants.find({"grades.score":{$gt:30}}).pretty()
+13. db.restaurants.find({$and:[{"borough":"Queens"},{"cuisine":"Italian"}]}).pretty()
+	
+14. db.restaurants.find().sort({"grades.score" : -1}).limit(2).pretty()
+	
+	
+	
+
+	
+Task 2 - MovieLens
+
+1. use movielens
+2.
+
+	mongoimport --db movielens --collection movies --drop --file C:\LocalInstall\Databases\ExampleData\movielens_movies.json
+	mongoimport --db movielens --collection users --drop --file C:\LocalInstall\Databases\ExampleData\movielens_users.json
+
+3. db.movies.find().pretty()
+4. db.users.find().pretty()
+5. 
+	db.users.find({},{"movies":{$slice:3}}).limit(1).pretty()
+6. db.movies.count()
+7. db.users.find({"name":"Barry Erin"},{name:1,occupation:1}).pretty()
+8. db.users.distinct("occupation")
+9. db.users.find({"occupation":"scientist"}).count()
+10: db.users.find({},{"name":1}).sort({"age":-1}).limit(10).pretty()
+11. db.users.update({"occupation":"writer"}, {$set:{"occupation": "author"}}, {multi:true})
+12. db.users.insert({"id":10,"name":"Rut Patel"})
+13.
+	db.users.update({"name":"Rut Patel"}, {$set:{"moviesid":2017, "rating":5, "timestamp":137573351}})
+14. db.users.remove({"name":"Rut Patel"})
+
+
+Task 3 - Zips
+
+1. mongoimport --db zipsDB --collection names --drop --file C:\Users\Profile\Downloads\zips.json
+2. db.names.find({},{city:1}).limit(1).pretty()
+3. db.names.insert({"_id":01010, "city" : "London", "loc" : [ -72.188455, 42.116543 ], "pop" : 900000, "state" : "LA"})
+4. db.names.find({state:"TN"},{city:1}).pretty()
+5. db.names.distinct("state")
+6. db.names.remove({"_id":01010, "city": "London"})
+7. db.names.count()
+8. db.names.find({"state":"TX"}).count("_id")
+9. db.names.aggregate(
+	{$group:
+		{_id:
+			{city:"$city"}, totalPop:{$sum:"$pop"}
+		}
+	},
+	{$sort:
+		{totalPop:-1}
+	},
+	{$limit:1}
+	)
+10.db.names.aggregate(
+	{$match:
+		{city:"NEW YORK"}
+	},
+	{$group:
+		{_id:"$city",
+			averagePop:{$avg:"$pop"}
+		}
+	}
+	)
+
+11. db.names.aggregate(
+	{$match:
+		{state:"IL"}
+	},
+	{$group:
+		{_id:"$state",
+			totalPop:{$sum:"$pop"}
+		}
+	}
+	)
+
+12. db.names.aggregate(
+	{$match:
+		{ $or: [{ state: "IL", state: "FL" }] }
+	},
+	{$group:
+		{_id:"$city",
+			averagePop:{$avg:"$pop"}
+		}
+	},
+	{$match:
+		{averagePop: {$gt:10000}}
+	}
+	)
+
+13. db.names.aggregate(
+	
+	{$group:
+		{_id:"$city",
+			totalPop:{$sum:"$pop"}
+		}
+	},
+	{$sort:
+		{totalPop:-1}
+	},
+	{$limit:3}
+	)
+
+14. db.names.aggregate(
+	{$match:
+		{state:"WY" }
+	},
+	{$group:
+		{_id:"$state",
+			count:{$sum:1}
+		}
+	}
+	)
+
+15.
+	
+	db.names.aggregate(
+	{$group:
+		{_id:"$state",
+			totalCities:{$sum:1}
+		}
+	}
+	)
+	
+16.
+
+	db.names.aggregate(
+	{$group:
+		{_id:"$state",
+			totalCities:{$sum:1}
+		}
+	},{$match:
+		{totalCities: {$lte:80}}
+	}
+	)
+	
+17.
+
+	db.names.aggregate(
+	{$group:
+		{_id:"$city",
+			numberOfTimesItAppeared:{$sum:1}
+		}
+	},{$sort:
+		{numberOfTimesItAppeared:-1}
+	},
+	{$limit:1}
+	)
+
+18. 
+
+db.names.aggregate(
+	{$group:
+		{_id:"$city",
+			numberOfTimesItAppeared:{$sum:1}
+		}
+	},{$sort:
+		{numberOfTimesItAppeared:-1}
+	},
+	{$limit:3}
+	)
+
+19. 
+
+db.names.aggregate(
+	{$group:
+		{_id:"$city",
+			numberOfTimesItAppeared:{$sum:1}
+		}
+	},{$match:
+		{numberOfTimesItAppeared:{$gte:10}}
+	}
+	)
+	

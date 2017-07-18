@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Peer Challenge 1 - Rock, Papers & Sccisors</title>
+	
+	<link href="CSS/bootstrap.css" rel='stylesheet' type='text/css' />
+	<link href="CSS/style.css" rel="stylesheet" type="text/css" media="all" />
+	<link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900' rel='stylesheet' type='text/css'>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script src="JS/peer_challenge1.js"></script>
+</head>
+
+<body>
+	
+	<div class = "page-header">
+	   <h1>
+		  Peer Challenge 1
+		  <small>Rock, Papers & Sccisors</small>
+	   </h1>
+	</div>
+
+	<div class="column">
+		User input: <select id="choice">
+		<option value"0">Rock</option>
+		<option value"1">Scissors</option>
+		<option value"2">Paper</option>
+		</select>
+	</div>
+
+	<input type="submit" class="btn btn-info" value="Submit" onClick="makeMove()">
+	
+	<div id="results">
+		<p id="moveText"> </p>
+		<p id="opponentMove"> </p>
+		<p id="combatText"> </p>
+		<p id="resultText"> </p>
+		<p id="gameCount"> </p>
+		<p id="playerText"> </p>
+		<p id="opponentText"> </p>
+		<p id="drawText"> </p>
+		<p id="percentageText"> </p>
+		<p id="mostCommonText"> </p>
+	</div>
+	
+	
+</body>
+</html>

@@ -1,0 +1,383 @@
+1. db.orders.insert({_id:1, orderDate:"2017-06-06", pickingTime: 5, packingTime:15, itemsID:[{id:1, quantity:1},{id:2,quantity:1}],orderTotal:600})
+2. db.items.aggregate(
+	{$group:
+		{_id:"$name",
+			avilablequantity:{$sum:"$stock"}
+		}
+	},
+	{$match:
+		{avilablequantity:{$lte:100}}
+	},{$sort:
+		{avilablequantity:-1}
+	}
+)
+3.
+	db.orders.aggregate(
+		{$match:
+			{_id:10}
+		},{$group:
+			{_id:"$name", totalTimeTakenToCompleteOrder:{$sum:{"$pickingTime" + "$packingTime"}}}
+		}
+	)
+	
+4.
+	db.orders.aggregate(
+		{$project:
+			{_id:"$_id", staffID: "$staffID.id", totalTimeTakenToCompleteOrder:{ $add: [ "$pickingTime", "$packingTime" ] } }
+		},{$sort:
+                    {totalTimeTakenToCompleteOrder:1}
+                }
+	)
+
+5.
+db.orders.aggregate(
+	
+	{$group: 
+		{_id: "$staffID.id",totalOrders: {$sum: 1}}
+	},{$sort: 
+            {totalOrders:-1}
+        },{$limit: 5}
+)
+
+6.
+db.orders.aggregate(
+    {$match: {orderDate:"2017-06-06"}},
+    {$group:
+        {_id:"$orderDate", totalIncome:{$sum: "$orderTotal"}}
+    }
+)
+
+
+7.
+db.items.update({"name":"Fossil Mens Diamond Watch"}, {$set:{"name":"Fossil Limited Edition Watch"}})
+
+8.
+db.orders.aggregate(
+    {$match: {orderDate:"2017-06-06"}},
+    {$group:
+        {_id:"$orderDate", totalOrders:{$sum: 1}}
+    }
+)
+
+
+
+
+db.items.insert(
+	{
+		"_id": 1,
+		"name": "PS4",
+		"stock": 15,
+		"price": 400,
+	}
+)
+
+db.items.insert(
+	{
+		"_id": 2,
+		"name": "XBOX 360",
+		"stock": 78,
+		"price": 200,
+	}
+)
+
+db.items.insert(
+	{
+		"_id": 3,
+		"name": "Samsung Galaxy S8 +",
+		"stock": 50,
+		"price": 800,
+	}
+)
+
+db.items.insert(
+	{
+		"_id": 4,
+		"name": "Apple Watch",
+		"stock": 100,
+		"price": 550,
+	}
+)
+
+db.items.insert(
+	{
+		"_id": 5,
+		"name": "Samsung Galaxy Gear 3",
+		"stock": 125,
+		"price": 250,
+	}
+)
+
+db.items.insert(
+	{
+		"_id": 6,
+		"name": "Apple MacBook Pro Retina",
+		"stock": 85,
+		"price": 1200,
+	}
+)
+
+db.items.insert(
+	{
+		"_id": 7,
+		"name": "Apple iMAC 27inch",
+		"stock": 67,
+		"price": 1500,
+	}
+)
+
+db.items.insert(
+	{
+		"_id": 8,
+		"name": "Citizen Red Arrows Watch",
+		"stock": 187,
+		"price": 400,
+	}
+)
+
+db.items.insert(
+	{
+		"_id": 9,
+		"name": "Nike Astroturf Trainers F57",
+		"stock": 187,
+		"price": 55,
+	}
+)
+
+db.items.insert(
+	{
+		"_id": 10,
+		"name": "Call of Duty Set",
+		"stock": 300,
+		"price": 85,
+	}
+)
+
+db.items.insert(
+	{
+		"_id": 11,
+		"name": "Fast and Furious DVD Set",
+		"stock": 1000,
+		"price": 225,
+	}
+)
+
+db.items.insert(
+	{
+		"_id": 12,
+		"name": "Bose Home Cinema",
+		"stock": 220,
+		"price": 3500,
+	}
+)
+
+db.items.insert(
+	{
+		"_id": 13,
+		"name": "Apple iPhone 7 Plus",
+		"stock": 800,
+		"price": 950,
+	}
+)
+
+db.items.insert(
+	{
+		"_id": 14,
+		"name": "Fossil Mens Diamond Watch",
+		"stock": 325,
+		"price": 659,
+	}
+)
+
+db.items.insert(
+	{
+		"_id": 15,
+		"name": "Nescaffe Cofee Maker 200 Series",
+		"stock": 135,
+		"price": 85,
+	}
+)
+
+db.items.insert(
+	{
+		"_id": 16,
+		"name": "Razor Gaming Laptop",
+		"stock": 291,
+		"price": 1200,
+	}
+)
+
+db.items.insert(
+	{
+		"_id": 17,
+		"name": "Samsung Galaxy Tab 3 10inch",
+		"stock": 197,
+		"price": 250,
+	}
+)
+
+db.items.insert(
+	{
+		"_id": 18,
+		"name": "Epson Projector",
+		"stock": 25,
+		"price": 799,
+	}
+)
+
+db.items.insert(
+	{
+		"_id": 19,
+		"name": "Nintendo Wii",
+		"stock": 95,
+		"price": 150,
+	}
+)
+
+db.items.insert(
+	{
+		"_id": 20,
+		"name": "Rolex Diamond Studded Watch",
+		"stock": 250,
+		"price": 4500,
+	}
+)
+
+
+
+
+
+
+
+
+
+
+
+db.orders.insert({_id:1, orderDate:"2017-06-06", pickingTime: 5, packingTime:15, itemsID:[{id:1, quantity:1},{id:2,quantity:1}],orderTotal:600,staffID:[{id:1}]})
+db.orders.insert({_id:2, orderDate:"2017-06-06", pickingTime: 8, packingTime:20, itemsID:[{id:1, quantity:1},{id:4,quantity:1}],orderTotal:950,staffID:[{id:2}]})
+db.orders.insert({_id:3, orderDate:"2017-06-07", pickingTime: 12, packingTime:25, itemsID:[{id:3, quantity:2},{id:8,quantity:1}],orderTotal:2000,staffID:[{id:1}]})
+db.orders.insert({_id:4, orderDate:"2017-06-08", pickingTime: 14, packingTime:30, itemsID:[{id:2, quantity:1},{id:20,quantity:1}],orderTotal:4700,staffID:[{id:2}]})
+db.orders.insert({_id:5, orderDate:"2017-06-06", pickingTime: 7, packingTime:15, itemsID:[{id:4, quantity:2},{id:17,quantity:1}],orderTotal:1350,staffID:[{id:1}]})
+db.orders.insert({_id:6, orderDate:"2017-06-07", pickingTime: 3, packingTime:10, itemsID:[{id:5, quantity:2},{id:13,quantity:1}],orderTotal:1450,staffID:[{id:2}]})
+db.orders.insert({_id:7, orderDate:"2017-06-08", pickingTime: 2, packingTime:5, itemsID:[{id:6, quantity:1},{id:9,quantity:1}],orderTotal:1255,staffID:[{id:1}]})
+db.orders.insert({_id:8, orderDate:"2017-06-06", pickingTime: 7, packingTime:15, itemsID:[{id:7, quantity:3},{id:11,quantity:1}],orderTotal:4725,staffID:[{id:3}]})
+db.orders.insert({_id:9, orderDate:"2017-06-07", pickingTime: 3, packingTime:10, itemsID:[{id:8, quantity:1},{id:18,quantity:1}],orderTotal:1199,staffID:[{id:1}]})
+db.orders.insert({_id:10, orderDate:"2017-06-08", pickingTime: 5, packingTime:11, itemsID:[{id:1, quantity:1},{id:19,quantity:1}],orderTotal:550,staffID:[{id:3}]})
+db.orders.insert({_id:11, orderDate:"2017-06-06", pickingTime: 13, packingTime:23, itemsID:[{id:1, quantity:1},{id:16,quantity:1}],orderTotal:1600,staffID:[{id:4}]})
+db.orders.insert({_id:12, orderDate:"2017-06-07", pickingTime: 15, packingTime:27, itemsID:[{id:1, quantity:1},{id:6,quantity:1}],orderTotal:1600,staffID:[{id:3}]})
+db.orders.insert({_id:13, orderDate:"2017-06-08", pickingTime: 14, packingTime:30, itemsID:[{id:3, quantity:1},{id:1,quantity:1}],orderTotal:1200,staffID:[{id:4}]})
+db.orders.insert({_id:14, orderDate:"2017-06-06", pickingTime: 5, packingTime:11, itemsID:[{id:9, quantity:1},{id:13,quantity:1}],orderTotal:1005,staffID:[{id:5}]})
+db.orders.insert({_id:15, orderDate:"2017-06-07", pickingTime: 1, packingTime:4, itemsID:[{id:10, quantity:1},{id:9,quantity:1}],orderTotal:140,staffID:[{id:4}]})
+db.orders.insert({_id:16, orderDate:"2017-06-08", pickingTime: 3, packingTime:9, itemsID:[{id:11, quantity:1},{id:5,quantity:1}],orderTotal:475,staffID:[{id:5}]})
+db.orders.insert({_id:17, orderDate:"2017-06-06", pickingTime: 5, packingTime:12, itemsID:[{id:12, quantity:1},{id:7,quantity:1}],orderTotal:5000,staffID:[{id:4}]})
+db.orders.insert({_id:18, orderDate:"2017-06-06", pickingTime: 5, packingTime:13, itemsID:[{id:13, quantity:1},{id:20,quantity:1}],orderTotal:5450,staffID:[{id:5}]})
+db.orders.insert({_id:19, orderDate:"2017-06-07", pickingTime: 6, packingTime:14, itemsID:[{id:14, quantity:1},{id:19,quantity:1}],orderTotal:809,staffID:[{id:6}]})
+db.orders.insert({_id:20, orderDate:"2017-06-08", pickingTime: 7, packingTime:15, itemsID:[{id:15, quantity:1},{id:18,quantity:1}],orderTotal:884,staffID:[{id:7}]})
+db.orders.insert({_id:21, orderDate:"2017-06-06", pickingTime: 8, packingTime:21, itemsID:[{id:16, quantity:1},{id:17,quantity:1}],orderTotal:1450,staffID:[{id:8}]})
+db.orders.insert({_id:22, orderDate:"2017-06-07", pickingTime: 7, packingTime:15, itemsID:[{id:17, quantity:1}],orderTotal:250,staffID:[{id:9}]})
+db.orders.insert({_id:23, orderDate:"2017-06-08", pickingTime: 6, packingTime:14, itemsID:[{id:18, quantity:1}],orderTotal:799,staffID:[{id:6}]})
+db.orders.insert({_id:24, orderDate:"2017-06-06", pickingTime: 6, packingTime:16, itemsID:[{id:19, quantity:1}],orderTotal:150,staffID:[{id:8}]})
+db.orders.insert({_id:25, orderDate:"2017-06-07", pickingTime: 6, packingTime:14, itemsID:[{id:17, quantity:1}],orderTotal:250,staffID:[{id:7}]})
+db.orders.insert({_id:26, orderDate:"2017-06-08", pickingTime: 7, packingTime:15, itemsID:[{id:18, quantity:1},{id:11,quantity:1}],orderTotal:1024,staffID:[{id:9}]})
+db.orders.insert({_id:27, orderDate:"2017-06-06", pickingTime: 6, packingTime:16, itemsID:[{id:19, quantity:1},{id:13,quantity:1}],orderTotal:1100,staffID:[{id:1}]})
+db.orders.insert({_id:28, orderDate:"2017-06-07", pickingTime: 6, packingTime:14, itemsID:[{id:1, quantity:1},{id:11,quantity:1}],orderTotal:625,staffID:[{id:10}]})
+db.orders.insert({_id:29, orderDate:"2017-06-08", pickingTime: 7, packingTime:15, itemsID:[{id:7, quantity:1},{id:13,quantity:1}],orderTotal:2450,staffID:[{id:10}]})
+db.orders.insert({_id:30, orderDate:"2017-06-06", pickingTime: 6, packingTime:16, itemsID:[{id:5, quantity:1},{id:11,quantity:1}],orderTotal:475,staffID:[{id:6}]})
+
+
+
+
+
+db.staff.insert(
+	{
+		"_id": 1,
+		"name": "Alex Johnson",
+		"age": 42,
+		"email": "ajohnson@hotmail.com"
+	}
+)
+
+db.staff.insert(
+	{
+		"_id": 2,
+		"name": "John Clark",
+		"age": 35,
+		"email": "jclark@hotmail.com"
+	}
+)
+
+db.staff.insert(
+	{
+		"_id": 3,
+		"name": "Stuart Warner",
+		"age": 39,
+		"email": "ajohnson@hotmail.com"
+	}
+)
+
+
+db.staff.insert(
+	{
+		"_id": 4,
+		"name": "Steve Jackson",
+		"age": 29,
+		"email": "sjackson@hotmail.com"
+	}
+)
+
+db.staff.insert(
+	{
+		"_id": 5,
+		"name": "James Smith",
+		"age": 48,
+		"email": "jsmith@hotmail.com"
+	}
+)
+
+db.staff.insert(
+	{
+		"_id": 6,
+		"name": "Rob Clarkson",
+		"age": 35,
+		"email": "rclarkson@hotmail.com"
+	}
+)
+
+
+db.staff.insert(
+	{
+		"_id": 7,
+		"name": "Tim Southee",
+		"age": 36,
+		"email": "tsouthee@hotmail.com"
+	}
+)
+
+
+db.staff.insert(
+	{
+		"_id": 8,
+		"name": "Corey Anderson",
+		"age": 37,
+		"email": "canderson@hotmail.com"
+	}
+)
+
+
+db.staff.insert(
+	{
+		"_id": 9,
+		"name": "Kevin Anderson",
+		"age": 38,
+		"email": "kanderson@hotmail.com"
+	}
+)
+
+
+db.staff.insert(
+	{
+		"_id": 10,
+		"name": "Robert Bryson",
+		"age": 39,
+		"email": "rbryson@hotmail.com"
+	}
+)

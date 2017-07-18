@@ -1,0 +1,432 @@
+Codes
+
+
+1.	
+	
+	db.items.aggregate(
+		{$match : 
+			{ "item_info.publisher" : { $in: ["Daniel Jackson","Mark Batt"] }}
+		},
+		{$group:
+			{_id:"$item_name"}
+		}
+	)
+
+	
+2. db.rentals.aggregate(
+	
+		{$group:
+			{_id:"$items.itemid",
+				totalRentals:{$sum:1}, 
+			}
+		},{$sort:
+			{totalRentals:-1}
+		}
+	)
+	
+	
+3.	
+	db.rentals.aggregate(
+	
+		{$group:
+			{_id:"Total Income",
+				is:{$sum:"$total"}, 
+			}
+		}
+		
+	)
+	
+	
+4.  db.items.update({"item_name":"Wonder Woman"}, {$set:{"quantity_available":15}})
+	
+5.
+	db.items.insert(
+		{
+			"item_type": "DVD",
+			"item_name": "Home Alone",
+			"genre": "Comedy",
+			"quantity_available": 7,
+			"price_for_oneday": 9.99,
+			"item_info":{
+				"publisher": "Chris Columbus",
+				"publication_date": new Date("2006-11-16"),
+				"market_rating": 8
+			}
+		}
+	)
+	
+	
+6.db.items.aggregate(
+	{$group:
+		{_id:"$item_name",
+			avilablequantity:{$sum:$quantity_available}
+		}
+	},
+	{$sort:
+		{avilablequantity:-1}
+	}
+)
+
+7. db.items.find(
+	{"item_info.market_rating":{$gte:3}},{"item_name":1, "item_info.market_rating":1}
+).sort({"item_info.market_rating" : -1}).pretty()
+
+
+8. db.items.find({$and:[{"item_type":"DVD"},{"price_for_oneday":{$lte:10}}]}, {"item_type":1, "item_type":1, "item_name":1, "price_for_oneday":1}).sort({"price_for_oneday" : 1}).pretty()
+
+
+
+
+
+
+
+
+
+db.items.insert(
+	{
+		"item_type": "DVD",
+		"item_name": "Harry Potter and Philisopher's Stone",
+		"genre": "Adventure | Family | Fantasy",
+		"quantity_available": 5,
+		"price_for_oneday": 4.99,
+		"item_info":{
+			"publisher": "Chris Columbus",
+			"publication_date": new Date("2001-11-16"),
+			"market_rating": 4
+		}
+	}
+)
+
+db.items.insert(
+	{
+		"item_type": "DVD",
+		"item_name": "Wonder Woman",
+		"genre": "Action | Adventure | Fantasy",
+		"quantity_available": 10,
+		"price_for_oneday": 7.99,
+		"item_info":{
+			"publisher": "Patty Jenkins",
+			"publication_date": new Date("2016-06-2"),
+			"market_rating": 7
+		}
+	}
+)
+
+db.items.insert(
+	{
+		"item_type": "DVD",
+		"item_name": "The Mummy",
+		"genre": "Action | Adventure | Fantasy",
+		"quantity_available": 15,
+		"price_for_oneday": 9.99,
+		"item_info":{
+			"publisher": "Chris Columbus",
+			"publication_date": new Date("2016-06-9"),
+			"market_rating": 5
+		}
+	}
+)
+
+db.items.insert(
+	{
+		"item_type": "DVD",
+		"item_name": "Pirates of the Caribbean: Dead Men Tell No Tales",
+		"genre": "Action | Adventure | Fantasy",
+		"quantity_available": 8,
+		"price_for_oneday": 6.99,
+		"item_info":{
+			"publisher": "Joachim Rønning, Espen Sandberg",
+			"publication_date": new Date("2016-05-26"),
+			"market_rating": 6
+		}
+	}
+)
+
+db.items.insert(
+	{
+		"item_type": "DVD",
+		"item_name": "Baywatch",
+		"genre": "Action | Comedy | Drama",
+		"quantity_available": 4,
+		"price_for_oneday": 5.99,
+		"item_info":{
+			"publisher": "Daniel Jackson",
+			"publication_date": new Date("2016-05-25"),
+			"market_rating": 2
+		}
+	}
+)
+
+
+
+db.items.insert(
+	{
+		"item_type": "CD",
+		"item_name": "Playback: The Brian Wilson Anthology",
+		"genre": "Soft Music",
+		"quantity_available": 4,
+		"price_for_oneday": 7.99,
+		"item_info":{
+			"publisher": "Mark Batt",
+			"publication_date": new Date("2016-04-25"),
+			"market_rating": 2
+		}
+	}
+)
+
+db.items.insert(
+	{
+		"item_type": "CD",
+		"item_name": "Songs Of The Wild West",
+		"genre": "Heavy Metal",
+		"quantity_available": 5,
+		"price_for_oneday": 5.99,
+		"item_info":{
+			"publisher": "David Johnson",
+			"publication_date": new Date("2016-05-14"),
+			"market_rating": 7
+		}
+	}
+)
+
+db.items.insert(
+	{
+		"item_type": "Book",
+		"item_name": "The Girlfriend: The most gripping debut psychological thriller of the year Kindle Edition",
+		"genre": "Thriller",
+		"quantity_available": 7,
+		"price_for_oneday": 9.99,
+		"item_info":{
+			"publisher": "John Clark",
+			"publication_date": new Date("2016-03-25"),
+			"market_rating": 2
+		}
+	}
+)
+
+db.items.insert(
+	{
+		"item_type": "Book",
+		"item_name": "Lies: The stunning new psychological thriller you won't be able to put down!",
+		"genre": "Thriller",
+		"quantity_available": 3,
+		"price_for_oneday": 11.99,
+		"item_info":{
+			"publisher": "Steve Clark",
+			"publication_date": new Date("2016-05-25"),
+			"market_rating": 1
+		}
+	}
+)
+
+
+db.items.insert(
+	{
+		"item_type": "Magazine",
+		"item_name": "2600 Magazine: The Hacker Quarterly",
+		"genre": "Technology",
+		"quantity_available": 4,
+		"price_for_oneday": 15.99,
+		"item_info":{
+			"publisher": "Alex Gordon",
+			"publication_date": new Date("2016-08-25"),
+			"market_rating": 5
+		}
+	}
+)
+
+
+db.items.insert(
+	{
+		"item_type": "Magazine",
+		"item_name": "Learning Excel",
+		"genre": "Technology",
+		"quantity_available": 4,
+		"price_for_oneday": 5.99,
+		"item_info":{
+			"publisher": "Stuart Warner",
+			"publication_date": new Date("2016-09-25"),
+			"market_rating": 5
+		}
+	}
+)
+
+
+
+db.rentals.insert(
+	{
+		"cusomter": "Barry Erin",
+		"cusomter_info":{
+				"email": "barry@hotmail.com",
+				"address": "21 Elton Avenue",
+				"phonenumber": "07912987956"
+		},
+		"items" : [{ "itemid" : 1}],
+		"start_date": new Date("2017-06-01"), 
+		"end_date": new Date("2017-06-08"),
+		"total_days": "7 Days",
+		"total": 34.93
+	}
+)
+
+
+db.rentals.insert(
+	{
+		"cusomter": "Raquel Stanton",
+		"cusomter_info":{
+				"email": "raquel@hotmail.com",
+				"address": "25 Eve Avenue",
+				"phonenumber": "07912987955"
+		},
+		"items" : [ { "itemid" : 1}],
+		"start_date": new Date("2017-06-09"), 
+		"end_date": new Date("2017-06-11"),
+		"total_days": "2 Days",
+		"total": 9.98
+	}
+)
+
+db.rentals.insert(
+	
+	{
+		"cusomter": "Yaeko Hassan",
+		"cusomter_info":{
+				"email": "yaeko@hotmail.com",
+				"address": "15 Rock Avenue",
+				"phonenumber": "07912987935"
+		},
+		"items" : [{ "itemid" : 1}],
+		"start_date": new Date("2017-06-02"),
+		"end_date": new Date("2017-06-30"),
+		"total_days": "28 Days",
+		"total": 139.72
+	}
+)
+
+
+
+db.rentals.insert(
+
+	{
+		"cusomter": "Anastasia Norbert",
+		"cusomter_info":{
+				"email": "anastasia@hotmail.com",
+				"address": "9 Ajax Avenue",
+				"phonenumber": "07912937955"
+		},
+		"items" : [ { "itemid" : 1}],
+		"start_date": new Date("2017-06-15"), 
+		"end_date": new Date("2017-06-30"),
+		"total_days": "15 Days",
+		"total": 74.85
+	}
+)
+
+
+
+db.rentals.insert(
+
+	{
+		"cusomter": "Demetrice Bert",
+		"cusomter_info":{
+				"email": "demetrice@hotmail.com",
+				"address": "5 Eve Avenue",
+				"phonenumber": "07912984955"
+		},
+		"items" : [ { "itemid" : 7}],
+		"start_date": new Date("2017-06-21"),
+		"end_date": new Date("2017-06-30"),
+		"total_days": "9 Days",
+		"total": 53.91
+	}
+	
+)
+
+db.rentals.insert(
+
+	{
+		"cusomter": "Ileen Francis",
+		"cusomter_info":{
+				"email": "ileen@hotmail.com",
+				"address": "1 Eve Avenue",
+				"phonenumber": "07912927955"
+		},
+		"items" : [ { "itemid" : 6}],
+		"start_date": new Date("2017-06-26"), 
+		"end_date": new Date("2017-06-30"),
+		"total_days": "4 Days",
+		"total": 31.96
+	}
+)
+
+db.rentals.insert(
+
+	{
+		"cusomter": "Brett Leroy",
+		"cusomter_info":{
+				"email": "brett@hotmail.com",
+				"address": "2 Eve Avenue",
+				"phonenumber": "075129d7955"
+		},
+		"items" : [ { "itemid" : 10}],
+		"start_date": new Date("2017-06-05"), 
+		"end_date": new Date("2017-06-09"),
+		"total_days": "4 Days",
+		"total": 63.96
+	
+	}
+	
+)
+
+db.rentals.insert(
+
+	{	
+		"cusomter": "Reyes Jared",
+		"cusomter_info":{
+				"email": "reyes@hotmail.com",
+				"address": "3 Eve Avenue",
+				"phonenumber": "07912981955"
+		},
+		"items" : [{ "itemid" : 7}],
+		"start_date": new Date("2017-06-12"), 
+		"end_date": new Date("2017-06-14"),
+		"total_days": "2 Days",
+		"total": 11.98
+	}
+	
+	
+)
+
+db.rentals.insert(
+
+	{
+		"cusomter": "Erin Russel",
+		"cusomter_info":{
+				"email": "erin@hotmail.com",
+				"address": "4 Eve Avenue",
+				"phonenumber": "07912985955"
+		},
+		"items" : [{ "itemid" : 7}],
+		"start_date": new Date("2017-06-03"), 
+		"end_date": new Date("2017-06-30"),
+		"total_days": "27 Days",
+		"total": 161.73
+	}
+)
+
+db.rentals.insert(
+	
+	{
+		"cusomter": "Anissa Jeffery",
+		"cusomter_info":{
+				"email": "anissa@hotmail.com",
+				"address": "5 Eve Avenue",
+				"phonenumber": "07912987955"
+		},
+		"items" : [{ "itemid" : 9}],
+		"start_date": new Date("2017-06-15"), 
+		"end_date": new Date("2017-06-30"),
+		"total_days": "15 Days",
+		"total": 179.85
+	}
+)

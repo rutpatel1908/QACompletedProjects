@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Challenge 10&11</title>
+	
+	<link href="CSS/bootstrap.css" rel='stylesheet' type='text/css' />
+	<link href="CSS/style.css" rel="stylesheet" type="text/css" media="all" />
+	<link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900' rel='stylesheet' type='text/css'>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script src="JS/challenge11.js"></script>
+</head>
+
+<body>
+	
+	<div class = "page-header">
+	   <h1>
+		  Challenge 10 & 11
+		  <small>Garage Project with Admin Interface</small>
+	   </h1>
+	</div>
+
+
+	<div>
+		<h4>Command List & Guideline</h4>
+    	<p>1)Command: checkin,"Car Name","Reg Number","Model","No of Small Fault","No of Medium Fault","No of Large Fault"</p>
+        <p>2)Command: checkout, "Car Reg Number"</p>
+        <p>3)Command: bill, "Car Reg Number"</p>
+        <p>4)Command: empty</p>
+        <p>5)Command: output</p>
+      
+	</div>
+	
+	<div class="form-group ">
+  		<label for="command">Command:</label>
+  		<input type="text" class="form-control" id="command" placeholder="Enter a command as a single line to perform admin operations on the garage application">
+	</div>
+	
+	<input type="submit" class="btn btn-info" value="Submit" onClick="executeCode(document.getElementById('command').value)">
+	
+	<div id="results"></div>
+	
+	<div id="bill"></div>
+</body>
+</html>

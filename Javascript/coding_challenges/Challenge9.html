@@ -1,0 +1,34 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Challenge 9</title>
+	
+	<link href="CSS/bootstrap.css" rel='stylesheet' type='text/css' />
+	<link href="CSS/style.css" rel="stylesheet" type="text/css" media="all" />
+	<link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900' rel='stylesheet' type='text/css'>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script src="JS/challenge9.js"></script>
+</head>
+
+<body onload="jsonOperation()">
+	
+	<div class = "page-header">
+	   <h1>
+		  Challenge 9 (Test this file on IE Explorer)
+		  <small>JSON Operation 2</small>
+	   </h1>
+	</div>
+	
+	<div class="form-group ">
+  		<label for="kingname">King Name:</label>
+  		<input type="text" class="form-control" id="kingName" placeholder="Please type the king name">
+	</div>
+
+	<input type="submit" class="btn btn-info" value="Submit" onClick="kingDataSearcher()">
+
+		
+	<div id="results"></div>
+	
+</body>
+</html>

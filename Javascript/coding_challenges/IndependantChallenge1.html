@@ -1,0 +1,76 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Independant Challenge 1 - Pokemon</title>
+	
+	<link href="CSS/bootstrap.css" rel='stylesheet' type='text/css' />
+	<link href="CSS/style.css" rel="stylesheet" type="text/css" media="all" />
+	<link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900' rel='stylesheet' type='text/css'>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script src="JS/independant_challenge1.js"></script>
+</head>
+
+<body>
+	
+	<div class = "page-header">
+	   <h1>
+		  Independant Challenge 1
+		  <small>Pokemon</small>
+	   </h1>
+	</div>
+
+	<form class="form-inline">
+        <label class="sr-only" for="inlineFormInput">Pokemon Moves Comparision</label>
+        
+        <div class="column">
+            Type 1: <select id="txtPokemonTypeOne">
+                <option value="0">Normal</option>
+                <option value="1">Fire</option>
+                <option value="2">Water</option>
+                <option value="3">Electric</option>
+                <option value="4">Grass</option>
+                <option value="5">Ice</option>
+                <option value="6">Fighting</option>
+                <option value="7">Poison</option>
+                <option value="8">Ground</option>
+                <option value="9">Flying</option>
+                <option value="10">Psychic</option>
+                <option value="11">Bug</option>
+                <option value="12">Rock</option>
+                <option value="13">Ghost</option>
+                <option value="14">Dragon</option>
+                <option value="15">Dark</option>
+                <option value="16">Steel</option>
+                <option value="17">Fairy</option>
+            </select><br>
+
+            Type 2: <select id="txtPokemonTypeTwo">
+                <option value="0">Normal</option>
+                <option value="1">Fire</option>
+                <option value="2">Water</option>
+                <option value="3">Electric</option>
+                <option value="4">Grass</option>
+                <option value="5">Ice</option>
+                <option value="6">Fighting</option>
+                <option value="7">Poison</option>
+                <option value="8">Ground</option>
+                <option value="9">Flying</option>
+                <option value="10">Psychic</option>
+                <option value="11">Bug</option>
+                <option value="12">Rock</option>
+                <option value="13">Ghost</option>
+                <option value="14">Dragon</option>
+                <option value="15">Dark</option>
+                <option value="16">Steel</option>
+                <option value="17">Fairy</option>
+            </select><br><br>
+        </div>
+    </form>
+
+	<input type="submit" class="btn btn-info" value="Submit" onClick="pokemon()">
+	
+	<div id="results"></div>
+	
+</body>
+</html>

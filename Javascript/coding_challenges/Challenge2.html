@@ -1,0 +1,76 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Challenge 2</title>
+	
+	<link href="CSS/bootstrap.css" rel='stylesheet' type='text/css' />
+	<link href="CSS/style.css" rel="stylesheet" type="text/css" media="all" />
+	<link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900' rel='stylesheet' type='text/css'>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script src="JS/challenge2.js"></script>
+</head>
+
+<body>
+	
+	<div class = "page-header">
+	   <h1>
+		  Challenge 2
+		  <small>Functions</small>
+	   </h1>
+	</div>
+	
+	<div class="form-group ">
+		<label for="personname">Find Square Root</label><br>
+
+  		<label for="personname">Number:</label>
+  		<input type="text" class="form-control" id="txtSquareNumber" placeholder="Please type your number">
+
+  		<input type="submit" class="btn btn-info" value="Submit" onClick="returnSquareRoot()">
+
+	</div>
+
+	</br>
+
+	<div class="form-group ">
+		<label for="findsum">Find Sum</label><br>
+
+  		<label for="firstnumber">First Number:</label>
+  		<input type="text" class="form-control" id="txtNumberOne" placeholder="Please type your first number">
+
+  		<label for="secondnumebr">Second Number:</label>
+  		<input type="text" class="form-control" id="txtNumberTwo" placeholder="Please type your second number">
+
+  		<label for="thirdnumber">Third Number:</label>
+  		<input type="text" class="form-control" id="txtNumberThree" placeholder="Please type thrid number">
+
+  		<input type="submit" class="btn btn-info" value="Submit" onClick="returnSum()">
+	</div>
+
+	<div id="sumresults">
+	</div>
+
+	</br>
+
+	<div class="form-group ">
+		<label for="personname">Person Object</label><br>
+
+  		<label for="personname">Person Name:</label>
+  		<input type="text" class="form-control" id="txtPersonName" placeholder="Please type your name">
+
+  		<label for="age">Age:</label>
+  		<input type="text" class="form-control" id="txtPersonAge" placeholder="Please type your age">
+
+  		<label for="occupation">Occupation:</label>
+  		<input type="text" class="form-control" id="txtPersonOccupation" placeholder="Please type your occupation">
+
+  		<input type="submit" class="btn btn-info" value="Submit" onClick="returnPersonObject()">
+
+	</div>
+
+			
+	<div id="results">
+	</div>
+	
+</body>
+</html>

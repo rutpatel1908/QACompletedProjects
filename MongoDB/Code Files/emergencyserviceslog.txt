@@ -1,0 +1,370 @@
+1.
+db.calllog.aggregate(
+    {$group:
+        {_id:"$Time of Call", totalCalls:{$sum: 1}}
+    },{$sort: 
+        {totalCalls:-1}
+    }
+)
+
+
+2.
+db.calllog.aggregate(
+	{$group:
+		{_id:"$staff_id",
+			totalCallsAttended:{$sum:1}
+		}
+	},
+	{$sort:
+		{totalCallsAttended:-1}
+	}
+)
+3.
+db.calllog.aggregate(
+	{$group:
+		{_id:0,
+			maximumDuration:{$max:"$Call Duration"}
+		}
+	}
+)
+4.
+db.calllog.aggregate(
+	{$group:
+		{_id:"$customer_info.location",
+			totalCalls:{$sum:1}
+		}
+	},{$sort:
+		{totalCalls:-1}
+	},{$limit:3}
+)
+5.
+db.calllog.aggregate(
+    {$group:
+        {_id:"$resolutionType", totalRequests:{$sum: 1}}
+    },{$sort: 
+        {totalRequests:-1}
+    }
+)
+
+
+6.
+db.calllog.aggregate(
+	{$group:
+		{_id:"$staff_id",
+			totalCallsAttended:{$sum:1}, totalDuration:{$sum:"$Call Duration"}, averageDurationPerCall:{$avg:"$Call Duration"}
+		}
+	},{$sort:
+		{totalDuration:-1, averageDurationPerCall:1}
+	}
+)
+
+7.
+db.calllog.aggregate(
+    {$group:
+        {_id:"$customer_info.name", totalCallsMade:{$sum: 1}}
+    },{$sort:
+        {totalCallsMade:-1}
+    },{$limit:3}
+)
+
+8.db.calllog.remove({"customer_info.name":"Adam Nickson"})
+
+
+
+
+
+
+
+
+
+db.staff.insert(
+	{
+		"_id": 1,
+		"name": "Alex Johnson",
+		"age": 42,
+		"location": "London",
+		"email": "ajohnson@hotmail.com"
+	}
+)
+
+db.staff.insert(
+	{
+		"_id": 2,
+		"name": "John Clark",
+		"age": 35,
+		"location": "Manchester",
+		"email": "jclark@hotmail.com"
+	}
+)
+
+db.staff.insert(
+	{
+		"_id": 3,
+		"name": "Stuart Warner",
+		"age": 39,
+		"location": "London",
+		"email": "ajohnson@hotmail.com"
+	}
+)
+
+
+db.staff.insert(
+	{
+		"_id": 4,
+		"name": "Steve Jackson",
+		"age": 29,
+		"location": "Leeds",
+		"email": "sjackson@hotmail.com"
+	}
+)
+
+db.staff.insert(
+	{
+		"_id": 5,
+		"name": "James Smith",
+		"age": 48,
+		"location": "London",
+		"email": "jsmith@hotmail.com"
+	}
+)
+
+
+
+
+db.calllog.insert(
+
+	{
+		"Date of Call": new Date("2016-04-04T14:00:00Z"),
+		"Time of Call": "14:00:00",
+		"Call Duration": 10,
+		"staff_id":4,
+		"Reason for call": "Requred ambulance to carry passenger to hospital",
+		"resolutionType":"Ambulance",
+		"comments": "Sent a ambulance to address HA4 3QE",
+		"customer_info":{
+				"name": "Jack Clark",
+				"phonenumber": "07912985955",
+				"address": "4 Elton Avenue, HA4 3QE",
+				"location": "Kenton"
+		}
+
+	}
+)
+
+
+
+db.calllog.insert(
+
+	{
+		"Date of Call": new Date("2017-05-04T16:00:00Z"),
+		"Time of Call": "16:00:00",
+		"Call Duration": 15,
+		"staff_id":3,
+		"Reason for call": "Requred police due to the robbry in the house",
+		"resolutionType":"Police",
+		"comments": "Sent a police to address HA7 3QE",
+		"customer_info":{
+				"name": "Alex Martin",
+				"phonenumber": "07913985955",
+				"address": "56 Ajax Avenue, HA7 3AD",
+				"location": "Northwood Hills"
+		}
+
+	}
+)
+
+
+
+
+
+db.calllog.insert(
+
+	{
+		"Date of Call": new Date("2017-06-24T16:00:00Z"),
+		"Time of Call": "16:00:00",
+		"Call Duration": 13,
+		"staff_id":2,
+		"Reason for call": "Requred ambulance to carry passenger to hospital",
+		"resolutionType":"Ambulance",
+		"comments": "Sent a police to address HA0 2EE",
+		"customer_info":{
+				"name": "Daniel Kenny",
+				"phonenumber": "07912885955",
+				"address": "42 Roadside Avenue, HA0 2EE",
+				"location": "Sudbury"
+		}
+
+	}
+)
+
+db.calllog.insert(
+
+	{
+		"Date of Call": new Date("2017-06-05T16:00:00Z"),
+		"Time of Call": "16:00:00",
+		"Call Duration": 3,
+		"staff_id":1,
+		"Reason for call": "Requred ambulance to carry passenger to hospital",
+		"resolutionType":"Firebrigade",
+		"comments": "Sent a firebridade to address HA3 4ED",
+		"customer_info":{
+				"name": "Jack Clark",
+				"phonenumber": "07912905955",
+				"address": "14 Dagmar Avenue, HA3 4ED",
+				"location": "Kenton"
+		}
+
+	}
+)
+
+
+db.calllog.insert(
+
+	{
+		"Date of Call": new Date("2017-05-29T16:00:00Z"),
+		"Time of Call": "16:00:00",
+		"Call Duration": 1,
+		"staff_id":3,
+		"Reason for call": "Requred firebridade due to the fire in the house",
+		"resolutionType":"Firebrigade",
+		"comments": "Sent a firebridade to address NW10 5OI",
+		"customer_info":{
+				"name": "Harry Davidson",
+				"phonenumber": "07912985755",
+				"address": "9 Ealing Avenue, NW10 5OI",
+				"location": "Stonebridge Park"
+		}
+
+	}
+)
+
+
+
+db.calllog.insert(
+
+	{
+		"Date of Call": new Date("2017-05-27T16:00:00Z"),
+		"Time of Call": "13:00:00",
+		"Call Duration": 2,
+		"staff_id":3,
+		"Reason for call": "Requred police due to the robbry in the house",
+		"resolutionType":"Police",
+		"comments": "Sent a police to address NW10 3QG",
+		"customer_info":{
+				"name": "James Blair",
+				"phonenumber": "07912985955",
+				"address": "101 Highstreet Avenue, NW10 3QG",
+				"location": "Stonebridge Park"
+		}
+
+	}
+)
+
+
+
+db.calllog.insert(
+
+	{
+		"Date of Call": new Date("2017-06-04T16:00:00Z"),
+		"Time of Call": "17:00:00",
+		"Call Duration": 3,
+		"staff_id":4,
+		"Reason for call": "Requred ambulance to carry passenger to hospital",
+		"resolutionType":"Ambulance",
+		"comments": "Sent a ambulance to address NW10 0OY",
+		"customer_info":{
+				"name": "Adam Nickson",
+				"phonenumber": "07912965955",
+				"address": "150 Laymar Avenue, NW10 0OY",
+				"location": "Stonebridge Park"
+		}
+
+	}
+)
+
+
+
+db.calllog.insert(
+
+	{
+		"Date of Call": new Date("2017-06-14T16:00:00Z"),
+		"Time of Call": "15:00:00",
+		"Call Duration": 5,
+		"staff_id":5,
+		"Reason for call": "Requred ambulance due to the robbry in the house",
+		"resolutionType":"Ambulance",
+		"comments": "Sent a ambulance to address NW4 5JN",
+		"customer_info":{
+				"name": "Jack Clark",
+				"phonenumber": "07912985955",
+				"address": "4 Oldage Avenue, NW4 5JN",
+				"location": "Harlesden"
+		}
+
+	}
+)
+
+
+
+db.calllog.insert(
+
+	{
+		"Date of Call": new Date("2017-06-21T16:00:00Z"),
+		"Time of Call": "14:00:00",
+		"Call Duration": 11,
+		"staff_id":1,
+		"Reason for call": "Requred firebridade due to the fire in the house",
+		"resolutionType":"Firebrigade",
+		"comments": "Sent a firebridade to address NW10 9GG",
+		"customer_info":{
+				"name": "Jacky Johnson",
+				"phonenumber": "07912985955",
+				"address": "33 New Street Avenue, NW10 9GG",
+				"location": "Stonebridge Park"
+		}
+
+	}
+)
+
+
+db.calllog.insert(
+
+	{
+		"Date of Call": new Date("2017-05-04T16:00:00Z"),
+		"Time of Call": "16:00:00",
+		"Call Duration": 4,
+		"staff_id":3,
+		"Reason for call": "Requred police due to the robbry in the house",
+		"resolutionType":"Police",
+		"comments": "Sent a police to address NW4 9WW",
+		"customer_info":{
+				"name": "Mark Brownson",
+				"phonenumber": "07912935955",
+				"address": "18 New Town Avenue, NW4 9WW",
+				"location": "Harlesden"
+		}
+
+	}
+)
+
+
+
+db.calllog.insert(
+
+	{
+		"Date of Call": new Date("2017-05-0T16:00:00Z"),
+		"Time of Call": "15:00:00",
+		"Call Duration": 7,
+		"staff_id":3,
+		"Reason for call": "Requred ambulance to carry passenger to hospital",
+		"resolutionType":"Ambulance",
+		"comments": "Sent a ambulance to address NW4 0OO",
+		"customer_info":{
+				"name": "Mark Batt",
+				"phonenumber": "07912785955",
+				"address": "49 Old Town Avenue, NW4 0OO",
+				"location": "Harlesden"
+		}
+
+	}
+)
